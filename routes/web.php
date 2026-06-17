@@ -1,26 +1,20 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn()=> view('home'));
 Route::get('/dashboard', fn()=> view('dashboard'));
 
+Route::resource('products', ProductController::class);
 
 Route::prefix('academic')->name('academic.')->group(function () {
 
     //Années Académiques
-    Route::get('academic-years',
-        fn()=> view('academic.academic-years.academic-years-index'))
-    ->name('academic-years-index');
+    Route::resource('academic-years',App\Http\Controllers\Academic\AcademicYearController::class )->except(['show']);
 
-    Route::get('academic-years/create',
-        fn()=> view('academic.academic-years.academic-years-create'))
-        ->name('academic-years.academic-years-create');
-
-    Route::get('academic-years/{id}/edit',
-        fn()=> view('academic.academic-years.academic-years-edit'))
-        ->name('academic-years.academic-years-edit');
-
+Route::patch('academic-years/{academicYear}/toggle', [App\Http\Controllers\Academic\AcademicYearController::class, 'toggle'])
+    ->name('academic-years.toggle');
 
     Route::get('programs',
         fn()=> view('academic.programs.programs-index'))

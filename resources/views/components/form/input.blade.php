@@ -13,5 +13,10 @@
         name ="{{ $name }}"
         value="{{ old($name, $value) }}"
         placeholder="{{ $placeholder }}"
+        {{ $required ? 'required' : '' }}
+        class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900
+               placeholder-gray-400 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500
+               @error($name) border-red-500 @enderror"
     >
+    <x-form.error :name="$name" />
 </div>

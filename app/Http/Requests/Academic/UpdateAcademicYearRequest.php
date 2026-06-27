@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreAcademicYearRequest extends FormRequest
+class UpdateAcademicYearRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class StoreAcademicYearRequest extends FormRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('academic_years'),
+                Rule::unique('academic_years','libelle')->ignore($this->academic_year->id),
             ],
             'date_debut' => ['required', 'date'],
             'date_fin' => ['required', 'date','after:date_debut'],
@@ -36,6 +36,4 @@ class StoreAcademicYearRequest extends FormRequest
             //
         ];
     }
-
-
 }

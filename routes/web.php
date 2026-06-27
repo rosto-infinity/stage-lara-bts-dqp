@@ -16,17 +16,7 @@ Route::prefix('academic')->name('academic.')->group(function () {
 Route::patch('academic-years/{academicYear}/toggle', [App\Http\Controllers\Academic\AcademicYearController::class, 'toggle'])
     ->name('academic-years.toggle');
 
-    Route::get('programs',
-        fn()=> view('academic.programs.programs-index'))
-        ->name('academic-years-index');
 
-    Route::get('programs/create',
-        fn()=> view('academic.programs.programs-create'))
-        ->name('programs.programs-create');
-
-    Route::get('programs/{id}/edit',
-        fn()=> view('academic.programs.programs-edit'))
-        ->name('programs.programs-edit');
 
 
     // Spécialités

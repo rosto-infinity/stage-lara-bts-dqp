@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class AcademicYear extends Model
 {
    protected $fillable =[
-    'est_active',
-       'date_debut',
+
+    'libelle', 'date_debut',
     'date_fin',
     'est_active'
     ];

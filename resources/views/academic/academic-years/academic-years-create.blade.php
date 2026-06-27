@@ -11,6 +11,7 @@
 
                 @csrf
 
+
             <x-form.input
                 name="libelle"
                 label="Libellé"
@@ -42,7 +43,7 @@
             </div>
 
             <div class="flex items-center gap-3 pt-2 border-t border-gray-100">
-                <a href="/academic/academic-years"
+                <a href="{{route('academic.academic-years.index')}}"
                    class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
                     Retour
                 </a>

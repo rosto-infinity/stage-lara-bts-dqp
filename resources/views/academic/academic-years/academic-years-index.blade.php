@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Années Académiques')
@@ -57,42 +56,53 @@
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-                @foreach ($academicYears as $year)
-                    
-              
-            {{-- Année active --}}
-            <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-medium text-gray-900">{{$year->libelle  }} </td>
-                <td class="px-4 py-3 text-gray-600">{{$year->date_debut->format('d/m/Y')}}</td>
-                <td class="px-4 py-3 text-gray-600">{{$year->date_fin->format('d/m/Y')  }}</td>
-                <td class="px-4 py-3">
-                    @if($year->est_active)
-                         <x-badge color="green">Active</x-badge>
-                    @else
-                         <x-badge color="gray">Inative</x-badge>
-                    @endif
-                </td>
+            @forelse($academicYears as $year)
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-4 py-3 font-medium text-gray-900">{{ $year->libelle }}</td>
+                    <td class="px-4 py-3 text-gray-600">{{ $year->date_debut->format('d/m/Y') }}</td>
+                    <td class="px-4 py-3 text-gray-600">{{ $year->date_fin->format('d/m/Y') }}</td>
+                    <td class="px-4 py-3">
+                        @if($year->est_active)
+                            <x-badge color="green">Active</x-badge>
+                        @else
+                            <x-badge color="gray">Inactive</x-badge>
+                        @endif
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <form action="{{ route('academic.academic-years.toggle', $year) }}" method="POST" class="inline">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit"
+                                        class="px-2.5 py-1.5 text-xs font-medium border rounded-md transition-colors {{ $year->est_active ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-red-300 text-red-700 hover:bg-red-50' }}">
+                                    {{ $year->est_active ? 'Désactiver' : 'Activer' }}
+                                </button>
+                            </form>
 
-                <td class="px-4 py-3 text-right">
-                    <div class="flex items-center justify-end gap-2">
-                        <form action="{{ route('academic.academic-years.toggle', $year) }}" method="POST" class="inline">
-                            
-                            @method('PATCH')
-                            <button type="submit"
-                                    class="px-2.5 py-1.5 text-xs font-medium border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors">
-                              {{ $year->est_active ? "Désactiver " : "Activer" }}
-                            </button>
-                        </form>
-                        <a href="/academic/academic-years/1/edit"
-                           class="px-2.5 py-1.5 text-xs font-medium border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors">
-                            Modifier
-                        </a>
-                    </div>
-                </td>
-            </tr>
+                            <a href="{{ route('academic.academic-years.edit', $year) }}"
+                               class="px-2.5 py-1.5 text-xs font-medium border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors">
+                                Modifier
+                            </a>
 
-          @endforeach
-
+                            @if(!$year->est_active)
+                                <x-confirm-delete
+                                    action="{{ route('academic.academic-years.destroy', $year) }}"
+                                    message="Êtes-vous sûr de vouloir supprimer l'année « {{ $year->libelle }} » ? Cette action est irréversible."
+                                    class="px-2.5 py-1.5 text-xs font-medium border border-gray-300 rounded-md text-gray-400 hover:text-red-600 hover:border-red-300 transition-colors" />
+                            @endif
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="px-4 py-8 text-center">
+                        <x-empty-state
+                            message="Aucune année académique enregistrée."
+                            action-label="Ajouter une année"
+                            action-url="{{ route('academic.academic-years.create') }}" />
+                    </td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </div>

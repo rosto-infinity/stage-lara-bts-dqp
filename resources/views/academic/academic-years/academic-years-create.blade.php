@@ -7,14 +7,16 @@
     <x-page-header title="Nouvelle Année Académique" subtitle="Créer une nouvelle année académique." />
 
     <div class="max-w-xl bg-white border border-gray-200 rounded-md p-6">
-        <form action="/academic/academic-years" method="POST" class="space-y-5">
+        <form action="{{ route('academic.academic-years.store') }}" method="POST" class="space-y-5">
 
+                @csrf
 
 
             <x-form.input
                 name="libelle"
                 label="Libellé"
                 placeholder="Ex : 2026-2027"
+                value="{{old('libelle')}}"
             />
 
             <div class="grid grid-cols-2 gap-4">
@@ -41,7 +43,7 @@
             </div>
 
             <div class="flex items-center gap-3 pt-2 border-t border-gray-100">
-                <a href="/academic/academic-years"
+                <a href="{{route('academic.academic-years.index')}}"
                    class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
                     Retour
                 </a>

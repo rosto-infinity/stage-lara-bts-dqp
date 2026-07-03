@@ -24,6 +24,6 @@
                @error($name) border-red-500 @enderror">
         {{ old($name, $value) }}
     </textarea>
-
+    <x-form.error :name="$name" />
 
 </div>

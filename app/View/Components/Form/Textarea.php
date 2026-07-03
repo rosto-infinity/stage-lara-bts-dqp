@@ -14,7 +14,7 @@ class Textarea extends Component
     public function __construct(
         public readonly string  $name,
         public readonly ?string $label       = null,
-        public readonly string  $value       = '',
+        public readonly ?string  $value       = '',
         public readonly int     $rows        = 4,
         public readonly bool    $required    = false,
         public readonly string  $placeholder = '',

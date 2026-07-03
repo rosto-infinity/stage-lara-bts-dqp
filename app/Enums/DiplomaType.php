@@ -8,6 +8,8 @@ enum DiplomaType : string
     case Master = 'Master';
     case Doctorat = 'Doctorat';
     case BTS = 'BTS';
+    case DQP = 'DQP';
+
 public static function values(): array
 {
     return array_column(self::cases(), 'value');
@@ -23,7 +25,7 @@ public static function forSelect(): array
     return $paires;
 }
 
-//DiplomaType:forSelect();
+//DiplomaType::forSelect();
 //  [
 //  'Licence' => 'Licence',
 //  'Master' => 'Master',

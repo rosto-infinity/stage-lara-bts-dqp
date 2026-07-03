@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Academic\ProgramController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ Route::patch('academic-years/{academicYear}/toggle', [App\Http\Controllers\Acade
     ->name('academic-years.toggle');
 
 
-
+    Route::resource('programs', ProgramController::class)->except(['show']);
 
     // Spécialités
     Route::get('specialties',        fn() => view('academic.specialties.specialties-index'))->name('specialties.index');
